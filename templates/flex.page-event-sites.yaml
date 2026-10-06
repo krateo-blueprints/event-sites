@@ -1,0 +1,41 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Flex
+metadata:
+  annotations:
+    krateo.io/allowed-resources: derived
+    krateo.io/nav-label: Event sites
+    krateo.io/nav-order: '100'
+    krateo.io/nav-path: /event-sites
+  name: page-event-sites
+  namespace: '{{ include "page.tierNamespace" (dict "ctx" . "tier" "common") }}'
+spec:
+  resourcesRefs:
+    items:
+      - apiVersion: widgets.templates.krateo.io/v1beta1
+        id: page-event-sites-header
+        name: page-event-sites-header
+        namespace: '{{ include "page.tierNamespace" (dict "ctx" . "tier" "common") }}'
+        resource: pageheaders
+        verb: GET
+      - apiVersion: widgets.templates.krateo.io/v1beta1
+        id: event-sites-health
+        name: event-sites-health
+        namespace: krateo-system
+        resource: piecharts
+        verb: GET
+      - apiVersion: widgets.templates.krateo.io/v1beta1
+        id: event-sites-table
+        name: event-sites-table
+        namespace: krateo-system
+        resource: tables
+        verb: GET
+  widgetData:
+    allowedResources:
+      - piecharts
+      - tables
+    gap: middle
+    items:
+      - resourceRefId: page-event-sites-header
+      - resourceRefId: event-sites-health
+      - resourceRefId: event-sites-table
+    vertical: true

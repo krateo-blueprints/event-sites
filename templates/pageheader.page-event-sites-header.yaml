@@ -1,0 +1,10 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: PageHeader
+metadata:
+  name: page-event-sites-header
+  namespace: '{{ include "page.tierNamespace" (dict "ctx" . "tier" "common") }}'
+spec:
+  resourcesRefs:
+    items: []
+  widgetData:
+    title: Event sites

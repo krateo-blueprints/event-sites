@@ -1,0 +1,29 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: event-sites-table
+  namespace: krateo-system
+spec:
+  widgetDataTemplate:
+  - expression: ${ .sites }
+    forPath: dataSource
+  apiRef:
+    name: event-sites-health
+    namespace: krateo-system
+  resourcesRefs:
+    items: []
+  widgetData:
+    columns:
+      - title: Event site
+        valueKey: name
+      - title: Namespace
+        valueKey: namespace
+      - title: Image
+        valueKey: image
+      - title: Replicas
+        valueKey: replicas
+      - title: Feedback form
+        valueKey: form
+      - title: Health
+        valueKey: health
+    allowedResources: []
