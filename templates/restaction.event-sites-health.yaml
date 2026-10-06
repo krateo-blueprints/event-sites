@@ -1,0 +1,26 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: event-sites-health
+  namespace: krateo-system
+spec:
+  api:
+    - headers:
+        - 'Accept: application/json'
+      name: sites
+      path: /apis/composition.krateo.io/v0-1-0/eventsites
+      verb: GET
+  filter: |
+    { sites: [ .sites.items[]? | {
+        name: .metadata.name,
+        namespace: .metadata.namespace,
+        image: (.spec.image // "—"),
+        replicas: ((.status.readyReplicas // 0) | tostring),
+        form: (.status.formUrl // "—"),
+        health: (if any(.status.conditions[]?; .type == "Ready" and .status == "True") then "Ready"
+                 elif any(.status.conditions[]?; .status == "False") then "Failing"
+                 else "Progressing" end)
+      } ],
+      byHealth: [ .sites.items[]? | (if any(.status.conditions[]?; .type == "Ready" and .status == "True") then "Ready"
+                 elif any(.status.conditions[]?; .status == "False") then "Failing"
+                 else "Progressing" end) ] | group_by(.) | map({ health: .[0], count: length }) }
