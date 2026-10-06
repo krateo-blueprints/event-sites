@@ -1,0 +1,18 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: PieChart
+metadata:
+  name: event-sites-health
+  namespace: krateo-system
+spec:
+  widgetDataTemplate:
+  - expression: ${ .byHealth }
+    forPath: data
+  apiRef:
+    name: event-sites-health
+    namespace: krateo-system
+  resourcesRefs:
+    items: []
+  widgetData:
+    angleField: count
+    colorField: health
+    data: []
