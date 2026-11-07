@@ -1,6 +1,17 @@
 apiVersion: v2
 appVersion: CHART_VERSION
 description: Krateo Composable Portal pages — event-sites.
+icon: https://raw.githubusercontent.com/krateo-platformops/.github/main/brand/logo.svg
 name: event-sites
 type: application
 version: CHART_VERSION
+keywords:
+  - portal
+  - pages
+  - dashboard
+  - sites
+sources:
+  - https://github.com/krateo-blueprints/event-sites
+annotations:
+  krateo.io/source-repo: krateo-blueprints/event-sites
+  krateo.io/kind: page-set
